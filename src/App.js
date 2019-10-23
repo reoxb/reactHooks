@@ -10,6 +10,19 @@ export default function (args) {
   const [lastName, setLastName] = useState('')
   const [profile, setProfile] = useState(initProfile)
 
+  // generar un state inicial al cargar 
+  useEffect(() => {
+    fetch('/profile')
+    .then(res => res.json())
+    .then(data => {
+      setProfile(data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, []);
+
+  // el cambio en el profile desencadena el efecto
   useEffect(() => {
     localStorage.setItem('profile', JSON.stringify(profile));
   }, [profile]);
